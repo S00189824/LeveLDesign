@@ -1,0 +1,6 @@
+sceneSetups:
+- path: C:/Users/S00189824.CAMPUS/Documents/GitHub/NavMeshTest/Navigation Starter
+    Kit/Greybox/Assets/Scenes/SampleScene.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
