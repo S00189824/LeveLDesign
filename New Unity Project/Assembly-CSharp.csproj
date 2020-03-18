@@ -62,9 +62,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\InnerDriveStudios\SkullChest\Scripts\CameraDolly.cs" />
+    <Compile Include="Assets\InnerDriveStudios\SkullChest\Scripts\MaterialControlPanel.cs" />
+    <Compile Include="Assets\InnerDriveStudios\SkullChest\Scripts\SkullChest.cs" />
     <Compile Include="Assets\Scripts\EnemiesToSpawnTest.cs" />
+    <Compile Include="Assets\Scripts\EnemyMoveOnTrigger.cs" />
+    <Compile Include="Assets\Scripts\EnemyMoveWithinDistance.cs" />
     <Compile Include="Assets\Scripts\EnemyRayCastTest.cs" />
+    <Compile Include="Assets\Scripts\NavMeshMover.cs" />
     <Compile Include="Assets\Scripts\NavMeshTest.cs" />
+    <Compile Include="Assets\Scripts\OntriggerExit.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />

@@ -13,7 +13,7 @@ public class NavMeshTest : MonoBehaviour
 
 
     // Use this for initialization
-    void Start ()
+    public virtual void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");

@@ -6,10 +6,11 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject enemies;
-    public float Starttime = 0;
-    public float EndTime = 4;
+    public float ElaspedTime = 0;
+    public float SpawnTime = 4;
     Vector3 position;
     BoxCollider SpawnArea;
+    public int enemyCounter;
     
 
     // Start is called before the first frame update
@@ -21,7 +22,8 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Instantiate(enemies,RandomPosition(),Quaternion.identity);
+        enemyCounter = GameObject.FindGameObjectsWithTag("enemy").Length;
+        Spawner4Enemies();
     }
 
     public Vector3 RandomPosition()
@@ -34,5 +36,22 @@ public class Spawner : MonoBehaviour
         
 
         return new Vector3(x,y,z);
+    }
+
+    public void Spawner4Enemies()
+    {
+        
+        ElaspedTime += Time.deltaTime;      //timer
+        if (ElaspedTime > SpawnTime)
+        {
+            Instantiate(enemies, RandomPosition(), Quaternion.identity);
+            ElaspedTime = 0;
+        }
+        else if(enemyCounter >= 5)
+        {
+
+            enemyCounter = 0;
+            
+        }
     }
 }
