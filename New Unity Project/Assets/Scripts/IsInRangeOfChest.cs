@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class IsInRangeOfChest : MonoBehaviour
 {
+    public bool IsInPlayerInRange;
+
     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.tag == ("Player"))
+        {
+            IsInPlayerInRange = true;
+
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.tag == ("Player"))
+        {
+            IsInPlayerInRange = false;
+
+        }
     }
 }

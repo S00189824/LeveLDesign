@@ -6,42 +6,44 @@ using Random = UnityEngine.Random;
 public class Chest_test : MonoBehaviour
 {
     [SerializeField]
-    public List<ChestState> targetangles = new List<ChestState>();
-    public Transform top;
-    public float acceptLeeway = 0;
 
+    AnimationEvent animationEvent;
+    
+    public bool ChestIsOpen;
+    IsInRangeOfChest isInRangeOfchest;
+    Animator animator;
+    public GameObject Item;
+    
+    
 
     // Start is called before the first frame update
     void Start()
     {
         
+        isInRangeOfchest = GetComponentInChildren<IsInRangeOfChest>();
+        animator = GetComponent<Animator>();
+        //animator.SetBool("Open", false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.E) && isInRangeOfchest.IsInPlayerInRange)
         {
-            ChestState state = targetangles[0];
-            top.transform.localRotation = Quaternion.Slerp(top.transform.localRotation, Quaternion.Euler(state.angle), state.speed * 0.5f * Time.deltaTime);
+            animator.Play("ChestOpening");
+            //Debug.Log("helloworld");
         }
     }
 
-    public void OnMouseDown()
+    public void ItemDropEvent(/*string item*/)
     {
-        float dot = Vector3.Dot(transform.right.normalized, (Camera.main.transform.position - transform.position).normalized);
-        if(targetangles != null && targetangles.Count > 0)
-        {
-            
-            
-            targetangles.Add(targetangles[0]);
-            targetangles.RemoveAt(0);
-        }
-    }
-}
+        float gravity = -9.81f;
+        float jumpheight = 3f;
+        Vector3 velocity;
 
-public class ChestState
-{
-    public Vector3 angle;
-    public float speed;
+        velocity.y = Mathf.Sqrt(jumpheight * -2f * gravity);
+        Instantiate(Item);
+    }
+
+    
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\EnemyMoveOnTrigger.cs" />
     <Compile Include="Assets\Scripts\EnemyMoveWithinDistance.cs" />
     <Compile Include="Assets\Scripts\EnemyRayCastTest.cs" />
+    <Compile Include="Assets\Scripts\HealthOrbTest.cs" />
     <Compile Include="Assets\Scripts\IsInRangeOfChest.cs" />
     <Compile Include="Assets\Scripts\NavMeshMover.cs" />
     <Compile Include="Assets\Scripts\NavMeshTest.cs" />
