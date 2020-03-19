@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\NavMeshMover.cs" />
     <Compile Include="Assets\Scripts\NavMeshTest.cs" />
     <Compile Include="Assets\Scripts\OntriggerExit.cs" />
+    <Compile Include="Assets\Scripts\Player\CameraChange.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
