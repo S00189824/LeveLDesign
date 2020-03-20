@@ -68,6 +68,8 @@
     <Compile Include="Assets\Scripts\EnemyMoveOnTrigger.cs" />
     <Compile Include="Assets\Scripts\EnemyMoveWithinDistance.cs" />
     <Compile Include="Assets\Scripts\EnemyRayCastTest.cs" />
+    <Compile Include="Assets\Scripts\GravityPullWeaponTest.cs" />
+    <Compile Include="Assets\Scripts\HealthComponent.cs" />
     <Compile Include="Assets\Scripts\HealthOrbTest.cs" />
     <Compile Include="Assets\Scripts\IsInRangeOfChest.cs" />
     <Compile Include="Assets\Scripts\NavMeshMover.cs" />
@@ -76,7 +78,10 @@
     <Compile Include="Assets\Scripts\Player\CameraChange.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerAttack.cs" />
+    <Compile Include="Assets\Scripts\RayCastWeapons.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Weapon.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/David/Documents/Github/LeveLDesign/New Unity Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
