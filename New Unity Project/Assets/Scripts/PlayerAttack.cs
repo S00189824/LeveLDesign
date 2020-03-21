@@ -12,7 +12,6 @@ public class PlayerAttack : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        
         SetActiveWeapon(0);
 	}
 	
@@ -39,6 +38,8 @@ public class PlayerAttack : MonoBehaviour
         {
             SetActiveWeapon(2);
         }
+
+
     }
 
 

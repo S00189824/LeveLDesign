@@ -5,7 +5,6 @@ using UnityEngine;
 public class GravityPullWeaponTest : RayCastWeapons
 {
     public float ImpulseAmount = 10;
-    LayerMask objecttobepulled;
     public float pullableDistance;
     public Camera Cam;
     public Transform HoldDistance;
@@ -18,18 +17,35 @@ public class GravityPullWeaponTest : RayCastWeapons
     private Rigidbody objectRB;
 
     private Vector3 rotateVector = Vector3.one;
-    private bool hasObject = false;
+    public bool hasObject = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ThrowForce = MinForce;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetMouseButtonDown(1) && hasObject)
+        {
+            ThrowForce += 0.1f;
+            Shoot();
+        }
+
+        if(Input.GetMouseButton(1) && hasObject)
+        {
+            //Shoot();
+            Debug.Log(ThrowForce);
+        }
+        if(hasObject)
+        {
+            
+            Rotateobject();
+
+            
+        }
     }
 
     public float Distance()
@@ -39,20 +55,44 @@ public class GravityPullWeaponTest : RayCastWeapons
         return distance;
     }
 
-    private void MoveObjToPosition()
+    private void CalculateRotationVector()
     {
-        CurrentObjectTaken.transform.position = Vector3.Lerp(CurrentObjectTaken.transform.position, HoldDistance.position, AttractSpeed * Time.deltaTime);
+        float x = Random.Range(0.5f, 0.5f);
+        float y = Random.Range(-0.5f, 0.5f);
+        float z = Random.Range(-0.5f, 0.5f);
+
+        rotateVector = new Vector3(x, y, z);
+    }
+
+    private void Rotateobject()
+    {
+        raycastHit.transform.Rotate(rotateVector);
     }
 
     private void DropObject()
     {
         objectRB.constraints = RigidbodyConstraints.None;
-        CurrentObjectTaken.transform.parent = null;
-        CurrentObjectTaken = null;
+        raycastHit.transform.parent = null;
+        //CurrentObjectTaken = null;
         hasObject = false;
     }
 
-    private void Shoot()
+    IEnumerator MoveObjectToPos()
+    {
+        float Interpolation = 0;
+        
+        //Debug.Log(transform.position);
+        while(Interpolation <= 1 && HoldDistance.position != raycastHit.collider.transform.position)
+        {
+            raycastHit.collider.transform.position = Vector3.Lerp(raycastHit.collider.transform.position, HoldDistance.position, Interpolation);
+            Interpolation += AttractSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+        objectRB.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void Shoot()
     {
         ThrowForce = Mathf.Clamp(ThrowForce, MinForce, MaxForce);
         objectRB.AddForce(Cam.transform.forward * ThrowForce, ForceMode.Impulse);
@@ -62,9 +102,10 @@ public class GravityPullWeaponTest : RayCastWeapons
 
     public override void Fire(Vector3 FireFromPosition)
     {
-        ShootRay(transform.position, transform.forward);
-       
-        ray = Cam.ScreenPointToRay(Input.mousePosition);
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, Mathf.Infinity);
+        //Debug.Log(HoldDistance.position);
+        //ray = Cam.ScreenPointToRay(Input.mousePosition);
 
         //if (raycastHit.collider.CompareTag("Block"))
         //{
@@ -77,22 +118,21 @@ public class GravityPullWeaponTest : RayCastWeapons
         //    }
 
         //}
-
-
-        if(Physics.Raycast(ray,out raycastHit,pullableDistance))
+        if (Physics.Raycast(ray,out raycastHit,pullableDistance))
         {
             if(raycastHit.collider.CompareTag("Block"))
             {
-                CurrentObjectTaken = raycastHit.collider.gameObject;
-                CurrentObjectTaken.transform.SetParent(HoldDistance);
+                StartCoroutine(MoveObjectToPos());
+                //MoveObjToPosition();
+                //CurrentObjectTaken = raycastHit.collider.gameObject;
+                raycastHit.collider.transform.SetParent(HoldDistance);
 
-                objectRB = CurrentObjectTaken.GetComponent<Rigidbody>();
-                objectRB.constraints = RigidbodyConstraints.FreezeAll;
-
+                objectRB = raycastHit.collider.GetComponent<Rigidbody>();
+                //objectRB.constraints = RigidbodyConstraints.FreezeAll;
                 hasObject = true;
+
+                CalculateRotationVector();
             }
         }
     }
-
-    
 }
