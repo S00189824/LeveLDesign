@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\InnerDriveStudios\SkullChest\Scripts\CameraDolly.cs" />
+    <Compile Include="Assets\Scripts\BlockRotation.cs" />
     <Compile Include="Assets\Scripts\Chest_test.cs" />
     <Compile Include="Assets\Scripts\EnemiesToSpawnTest.cs" />
     <Compile Include="Assets\Scripts\EnemyMoveOnTrigger.cs" />
