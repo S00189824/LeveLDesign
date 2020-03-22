@@ -12,6 +12,7 @@ public class GravityPullWeaponTest : RayCastWeapons
     public float MaxForce;
     public float ThrowForce;
     public float MinForce;
+    private GameObject IsObjectUsed;
 
     private Rigidbody objectRB;
 
@@ -28,15 +29,11 @@ public class GravityPullWeaponTest : RayCastWeapons
     {
         if(Input.GetMouseButtonDown(1) && hasObject)
         {
-            ThrowForce += 0.1f;
+            
             Shoot();
             hasObject = false;
         }
-        if(hasObject)
-        {
-            
-            Rotateobject();
-        }
+        
     }
 
     public float Distance()
@@ -58,13 +55,12 @@ public class GravityPullWeaponTest : RayCastWeapons
     private void Rotateobject()
     {
         raycastHit.transform.Rotate(rotateVector);
-        
     }
 
     private void DropObject()
     {
         objectRB.constraints = RigidbodyConstraints.None;
-        raycastHit.transform.parent = null;
+        //raycastHit.transform.parent = null;
         hasObject = false;
     }
 
@@ -78,6 +74,8 @@ public class GravityPullWeaponTest : RayCastWeapons
             raycastHit.collider.transform.position = Vector3.Lerp(raycastHit.collider.transform.position, HoldDistance.position, Interpolation);
             Interpolation += AttractSpeed * Time.deltaTime;
 
+            print(Interpolation);
+
             yield return null;
         }
         objectRB.constraints = RigidbodyConstraints.FreezeAll;
@@ -85,10 +83,14 @@ public class GravityPullWeaponTest : RayCastWeapons
 
     public void Shoot()
     {
-        ThrowForce = Mathf.Clamp(ThrowForce, MinForce, MaxForce);
-        objectRB.AddForce(Cam.transform.forward * ThrowForce, ForceMode.Impulse);
-        ThrowForce = MinForce;
         DropObject();
+        IsObjectUsed.transform.SetParent(null);
+        //ThrowForce = Mathf.Clamp(ThrowForce, MinForce, MaxForce);
+        objectRB.AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
+        Debug.Log(Cam.transform.forward * ThrowForce);
+        ThrowForce = MinForce;
+        objectRB.useGravity = true;
+        
     }
 
     public override void Fire(Vector3 FireFromPosition)
@@ -113,6 +115,8 @@ public class GravityPullWeaponTest : RayCastWeapons
         {
             if(raycastHit.collider.CompareTag("Block"))
             {
+                IsObjectUsed = raycastHit.collider.gameObject;
+
                 StartCoroutine(MoveObjectToPos());
                 //MoveObjToPosition();
                 //CurrentObjectTaken = raycastHit.collider.gameObject;
@@ -124,7 +128,7 @@ public class GravityPullWeaponTest : RayCastWeapons
 
                 
 
-                CalculateRotationVector();
+                
             }
         }
     }
